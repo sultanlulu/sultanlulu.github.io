@@ -119,12 +119,15 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      height: 100dvh; /* Menggunakan dynamic viewport height untuk mobile */
       background: radial-gradient(circle at 50% 20%, #111 0%, #000 100%);
       overflow: hidden;
       text-align: center;
       color: #fff;
       position: relative;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     /* Viewport container untuk membatasi semua elemen */
@@ -182,13 +185,12 @@
       position: relative;
       pointer-events: auto;
       box-sizing: border-box;
+      text-align: center;
     }
 
     .logo {
-      margin: 0 auto;
+      margin: 0 auto 20px auto;
       width: 180px;
-      margin-bottom: 20px;
-      margin-top: 50px;
       animation: bounce 3s infinite ease-in-out;
     }
 
@@ -400,12 +402,10 @@
       }
 
       .cloud {
-        /* width: 100px; */
         top: 30px;
       }
 
       .cloud2 {
-        /* width: 150px; */
         top: 60px;
       }
     }
@@ -429,7 +429,7 @@
   <div class="container">
     <div class="bg-FatCat logo"></div>
     <h1>SultanLulu</h1>
-    <span>。･:*:･ﾟ★,。･:*:･ﾟ☆ 。･:*:･ﾟ★,。･:*:･ﾟ☆ 。･:*:</span>
+    <span class="copyright">。･:*:･ﾟ★,。･:*:･ﾟ☆ 。･:*:･ﾟ★,。･:*:･ﾟ☆ 。･:*:</span>
     <p>Klik tombol dibawah ini untuk menuju halaman daftar dan login Sultan Lulu yang terbaru.</p>
     <a href="https://gatottech.io/lulu08" rel="nofollow noopener noreferrer" target="_blank" class="button">Login/Daftar</a>
     <div class="copyright">© 2025 <a href="https://sultanlulu.github.io/">Sultanlulu</a>. All rights reserved.</div>
