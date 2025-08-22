@@ -105,18 +105,38 @@
   </noscript>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <style amp-custom>
+    /* Reset untuk menghindari scroll tidak diinginkan */
+    html {
+      height: 100%;
+      overflow: hidden;
+    }
+
     body {
       margin: 0;
+      padding: 0;
       font-family: 'Segoe UI', Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      height: 100vh;
+      height: 100dvh; /* Menggunakan dynamic viewport height untuk mobile */
       background: radial-gradient(circle at 50% 20%, #111 0%, #000 100%);
       overflow: hidden;
       text-align: center;
       color: #fff;
       position: relative;
+    }
+
+    /* Viewport container untuk membatasi semua elemen */
+    .viewport-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      pointer-events: none;
     }
 
     /* Layer bintang */
@@ -160,12 +180,15 @@
       padding: 20px;
       z-index: 2;
       position: relative;
+      pointer-events: auto;
+      box-sizing: border-box;
     }
 
     .logo {
       margin: 0 auto;
       width: 180px;
       margin-bottom: 20px;
+      margin-top: 50px;
       animation: bounce 3s infinite ease-in-out;
     }
 
@@ -255,7 +278,7 @@
       }
     }
 
-    /* AWAN */
+    /* AWAN - Fixed untuk menghindari scroll */
     .cloud {
       position: absolute;
       top: 40px;
@@ -263,6 +286,8 @@
       opacity: 0.8;
       animation: moveCloud 60s linear infinite;
       z-index: 1;
+      /* Memastikan elemen tidak keluar dari viewport */
+      will-change: transform;
     }
 
     .cloud2 {
@@ -272,42 +297,42 @@
       opacity: 0.6;
       animation: moveCloud2 80s linear infinite;
       z-index: 1;
+      /* Memastikan elemen tidak keluar dari viewport */
+      will-change: transform;
     }
 
+    /* Animasi cloud yang diperbaiki - menggunakan transform untuk performa lebih baik */
     @keyframes moveCloud {
       0% {
-        left: -150px;
+        transform: translateX(calc(-120px - 10vw));
       }
 
       100% {
-        left: 100%;
+        transform: translateX(calc(100vw + 10vw));
       }
     }
 
     @keyframes moveCloud2 {
       0% {
-        right: -200px;
+        transform: translateX(calc(100vw + 10vw));
       }
 
       100% {
-        right: 100%;
+        transform: translateX(calc(-180px - 10vw));
       }
     }
 
-    /* TANAH / GROUND di bawah */
+    /* TANAH / GROUND di bawah - Fixed position untuk menghindari overflow */
     .ground {
       position: absolute;
       bottom: 0;
       left: 0;
       width: 100%;
       height: 80px;
-
       background-image: url('sprites.png');
       background-position: -10px -90px;
-      /* tile tanah dari sprite */
       background-repeat: repeat-x;
       background-size: auto;
-
       animation: moveGround 50s linear infinite;
       z-index: 1;
     }
@@ -319,7 +344,6 @@
 
       to {
         background-position: -2010px -90px;
-        /* geser jauh (200px × 10 tile) */
       }
     }
 
@@ -327,7 +351,6 @@
       width: 176px;
       height: 200px;
       background: url('sprites.png') -5px -300px;
-
     }
 
     .bg-cloud {
@@ -343,7 +366,7 @@
     }
 
     .copyright {
-      padding-top: 100px;
+      padding-top: 50px;
       font-size: 12px;
       color: #ccc;
     }
@@ -357,27 +380,60 @@
       color: #FFD700;
     }
 
+    /* Media query untuk mobile */
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+        max-width: 90%;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+
+      .logo {
+        width: 150px;
+      }
+
+      .cloud {
+        /* width: 100px; */
+        top: 30px;
+      }
+
+      .cloud2 {
+        /* width: 150px; */
+        top: 60px;
+      }
+    }
+
   </style>
 </head>
 <body>
-  <!-- Layer bintang -->
-  <div class="stars"></div>
+  <!-- Viewport container untuk membatasi semua elemen animasi -->
+  <div class="viewport-container">
+    <!-- Layer bintang -->
+    <div class="stars"></div>
 
-  <!-- Awan -->
-  <div class="bg-cloud cloud"></div>
-  <div class="bg-cloud2 cloud2"></div>
+    <!-- Awan -->
+    <div class="bg-cloud cloud"></div>
+    <div class="bg-cloud2 cloud2"></div>
+
+    <!-- Tanah animasi di bawah -->
+    <div class="ground"></div>
+  </div>
 
   <div class="container">
     <div class="bg-FatCat logo"></div>
     <h1>SultanLulu</h1>
-    <span>｡･:*:･ﾟ★,｡･:*:･ﾟ☆ ｡･:*:･ﾟ★,｡･:*:･ﾟ☆ ｡･:*:</span>
+    <span>。･:*:･ﾟ★,。･:*:･ﾟ☆ 。･:*:･ﾟ★,。･:*:･ﾟ☆ 。･:*:</span>
     <p>Klik tombol dibawah ini untuk menuju halaman daftar dan login Sultan Lulu yang terbaru.</p>
     <a href="https://gatottech.io/lulu08" rel="nofollow noopener noreferrer" target="_blank" class="button">Login/Daftar</a>
-<!--     <div class="copyright">© 2025 <a href="https://sultanlulu.github.io/">Sultanlulu</a>. All rights reserved.</div> -->
+    <div class="copyright">© 2025 <a href="https://sultanlulu.github.io/">Sultanlulu</a>. All rights reserved.</div>
   </div>
-  
-  <!-- Tanah animasi di bawah -->
-  <div class="ground"></div>
 </body>
 </html>
 
